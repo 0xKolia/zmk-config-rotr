@@ -4,37 +4,43 @@
 #include <dt-bindings/zmk/bt.h>
 
 &inc_dec_kp {
-	triggers-per-rotation = <4>;
+	triggers-per-rotation = <20>;   // knob steps per full turn. Lower = coarser, higher = finer.
 };
 &def_lshft {
-	triggers-per-rotation = <4>;
+	triggers-per-rotation = <4>;    // leave this — controls layer-switching speed
 };
 
 / {
 	keymap {
 		compatible = "zmk,keymap";
 
+		// LAYER 0 — knob = Left/Right arrows (side-scroll substitute)
 		default_layer {
-			//PREV | PLAY/PAUSE | NEXT
-			bindings = <&kp C_MUTE &lt 4 F13 &kp C_PP>;
-			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+			// Copy | Cut (tap=cut, HOLD=switch layers) | Paste
+			bindings = <&kp LC(C) &lt 4 LC(X) &kp LC(V)>;
+			sensor-bindings = <&inc_dec_kp RIGHT LEFT>;
 		};
+
+		// LAYER 1 — knob = monitor brightness (via Twinkle Tray hotkeys)
 		one {
-			//PREV | PLAY/PAUSE | NEXT
-			bindings = <&kp C_PREV &lt 4 C_PP &kp C_NEXT>;
+			bindings = <&kp LC(C) &lt 4 LC(X) &kp LC(V)>;
+			sensor-bindings = <&inc_dec_kp LC(LA(PG_UP)) LC(LA(PG_DN))>;
+		};
+
+		// LAYER 2 — knob = volume (kept from the original config so you don't lose it)
+		two {
+			bindings = <&kp LC(C) &lt 4 LC(X) &kp LC(V)>;
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 		};
-		two {
-			//PREV | PLAY/PAUSE | NEXT
-			bindings = <&kp LEFT &lt 4 SPACE &kp RIGHT>;
+
+		// LAYER 3 — knob = page up/down (spare, vertical scroll-ish)
+		three {
+			bindings = <&kp LC(C) &lt 4 LC(X) &kp LC(V)>;
 			sensor-bindings = <&inc_dec_kp PG_UP PG_DN>;
 		};
-		three {
-			//PREV | PLAY/PAUSE | NEXT
-			bindings = <&kp C_MUTE &lt 4 F13 &kp C_PP>;
-		};
+
+		// LAYER 4 — SELECTOR. Do not change. Hold middle button + turn knob to pick a layer.
 		shift {
-			//PREV | PLAY/PAUSE | NEXT
 			bindings = <&bt BT_CLR &trans &rgb_ug RGB_TOG>;
 			sensor-bindings = <&def_lshft>;
 		};
