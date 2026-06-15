@@ -4,7 +4,7 @@
 #include <dt-bindings/zmk/bt.h>
 
 &inc_dec_kp {
-	triggers-per-rotation = <20>;   // knob steps per full turn. Lower = coarser, higher = finer.
+	triggers-per-rotation = <60>;   // knob steps per full turn. Lower = coarser, higher = finer.
 };
 &def_lshft {
 	triggers-per-rotation = <4>;    // leave this — controls layer-switching speed
