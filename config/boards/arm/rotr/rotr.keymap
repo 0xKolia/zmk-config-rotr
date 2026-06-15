@@ -4,42 +4,41 @@
 #include <dt-bindings/zmk/bt.h>
 
 &inc_dec_kp {
-	triggers-per-rotation = <60>;   // knob steps per full turn. Lower = coarser, higher = finer.
+	triggers-per-rotation = <48>;   // knob resolution. Higher = finer.
 };
 &def_lshft {
-	triggers-per-rotation = <4>;    // leave this — controls layer-switching speed
+	triggers-per-rotation = <4>;    // leave this — layer-switching speed
 };
 
 / {
 	keymap {
 		compatible = "zmk,keymap";
 
-		// LAYER 0 — knob = Left/Right arrows (side-scroll substitute)
+		// LAYER 0 — knob INACTIVE (no sensor-bindings line = knob does nothing)
 		default_layer {
-			// Copy | Cut (tap=cut, HOLD=switch layers) | Paste
 			bindings = <&kp LC(C) &lt 4 LC(X) &kp LC(V)>;
-			sensor-bindings = <&inc_dec_kp RIGHT LEFT>;
 		};
 
-		// LAYER 1 — knob = monitor brightness (via Twinkle Tray hotkeys)
+		// LAYER 1 — knob = brightness (F13 up / F14 down, via Twinkle Tray)
 		one {
 			bindings = <&kp LC(C) &lt 4 LC(X) &kp LC(V)>;
-			sensor-bindings = <&inc_dec_kp LC(LA(PG_UP)) LC(LA(PG_DN))>;
+			sensor-bindings = <&inc_dec_kp F13 F14>;
 		};
 
-		// LAYER 2 — knob = volume (kept from the original config so you don't lose it)
+		// LAYER 2 — knob = volume
 		two {
 			bindings = <&kp LC(C) &lt 4 LC(X) &kp LC(V)>;
 			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 		};
 
-		// LAYER 3 — knob = page up/down (spare, vertical scroll-ish)
+		// LAYER 3 — knob = Right/Left arrows (side-scroll substitute)
 		three {
 			bindings = <&kp LC(C) &lt 4 LC(X) &kp LC(V)>;
-			sensor-bindings = <&inc_dec_kp PG_UP PG_DN>;
+			sensor-bindings = <&inc_dec_kp RIGHT LEFT>;
 		};
 
-		// LAYER 4 — SELECTOR. Do not change. Hold middle button + turn knob to pick a layer.
+		// LAYER 4 — SELECTOR. Hold middle + turn knob to pick a layer.
+		// Right button here = RGB on/off toggle.
 		shift {
 			bindings = <&bt BT_CLR &trans &rgb_ug RGB_TOG>;
 			sensor-bindings = <&def_lshft>;
